@@ -8,7 +8,12 @@ var request = require("request");
 var spotify = require("spotify");
 
 // requires the Twitter node package we installed
-var twitter = require("twitter");
+var Twitter = require("twitter");
+
+// requires the FS node package we installed
+
+var fs = require("fs");
+
 
 // defines the first user input in the command prompt after "node liri.js"
 // this will be used to determine which command is performed; either the Twitter function,
@@ -16,12 +21,34 @@ var twitter = require("twitter");
 // and runs one of the given functions. We'll use the Spotify function for reference.)
 var userInput = process.argv[2];
 
+// defines the second user input in the command prompt: this will be utilized for the Spotify and OMDB requests, where
+// we put the name of the movie or song in question.
 var userInputTwo = process.argv[3];
 
+
+// should show my last 20 tweets and when they were created at in the terminal window
 if (userInput === "my-tweets") {
+
+	console.log(keys);
+
+	var client = new Twitter({
+  	consumer_key: 'twitterkeys.consumer_key',
+  	consumer_secret: 'twitterkeys.consumer_secret',
+  	access_token_key: 'twitterkeys.access_token_key',
+  	access_token_secret: 'twitterkeys.access_token_secret',
+});
+ 
+var params = {screen_name: 'ColinJSCoding'};
+client.get('statuses/user_timeline', params, function(error, tweets, response) {
+  if (!error) {
+    console.log(tweets);
+  }
+})
 
 };
 
+// Should show following info for the song you use as argv[3]: Artist(s), Song's Name, Preview link from spotify, Album of the song
+// if no song is provided, defaults to "The Sign" by Ace of Base
 if (userInput === "spotify-this-song") {
 
 };
@@ -49,6 +76,11 @@ if (userInput === "movie-this") {
 });
 };
 
+// Using the "fs" Node package, should take the text inside of random.txt and then use it to call one of LIRI's commands.
 if (userInput == "do-what-it-says") {
 
 }
+
+//BONUS- Cause all of these to output data to append to a .txt file called "log.txt"
+// Should append each command you run to the "log.txt" file.
+// Do not overwrite your file each time you run a command.
