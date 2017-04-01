@@ -52,14 +52,14 @@ client.get('statuses/user_timeline', params, function(error, tweets, response) {
 if (userInput === "spotify-this-song") {
  
  	if (!userInputTwo) {
- 			spotify.search({ type: 'track', query: "The Sign" }, function(err, data) {
+ 			spotify.search({ type: 'track', query: 'The Sign Ace of Base' }, function(err, data) {
     			if ( err ) {
         			console.log('Error occurred: ' + err);
         			return;
     			}
     		console.log("You didn't enter any song title in your search!");
  			console.log("Name of default song: " + data.tracks.items[0].name);
- 			console.log("Artists of default song: " + data.tracks.items[0].artists.name);
+ 			console.log("Artists of default song: " + data.tracks.items[0].artists[0].name);
  			console.log("Album of a song: " + data.tracks.items[0].album.name);
  			console.log("Preview link of first search result song: " + data.tracks.items[0].preview_url);
 			});
@@ -72,11 +72,12 @@ if (userInput === "spotify-this-song") {
         			return;
     			}
  			console.log("Name of first search result song: " + data.tracks.items[0].name);
- 			console.log("Artists of first search result song: " + data.tracks.items[0].artists.name);
+ 			console.log("Artists of first search result song: " + data.tracks.items[0].artists[0].name);
  			console.log("Album of first search result song: " + data.tracks.items[0].album.name);
  			console.log("Preview link of first search result song: " + data.tracks.items[0].preview_url); 
 			});
 		};
+}
 
 
 if (userInput === "movie-this") {
