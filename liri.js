@@ -50,8 +50,34 @@ client.get('statuses/user_timeline', params, function(error, tweets, response) {
 // Should show following info for the song you use as argv[3]: Artist(s), Song's Name, Preview link from spotify, Album of the song
 // if no song is provided, defaults to "The Sign" by Ace of Base
 if (userInput === "spotify-this-song") {
+ 
+ 	if (!userInputTwo) {
+ 			spotify.search({ type: 'track', query: "The Sign" }, function(err, data) {
+    			if ( err ) {
+        			console.log('Error occurred: ' + err);
+        			return;
+    			}
+    		console.log("You didn't enter any song title in your search!");
+ 			console.log("Name of default song: " + data.tracks.items[0].name);
+ 			console.log("Artists of default song: " + data.tracks.items[0].artists.name);
+ 			console.log("Album of a song: " + data.tracks.items[0].album.name);
+ 			console.log("Preview link of first search result song: " + data.tracks.items[0].preview_url);
+			});
+ 		}
 
-};
+ 	else {		
+			spotify.search({ type: 'track', query: userInputTwo }, function(err, data) {
+    			if ( err ) {
+        			console.log('Error occurred: ' + err);
+        			return;
+    			}
+ 			console.log("Name of first search result song: " + data.tracks.items[0].name);
+ 			console.log("Artists of first search result song: " + data.tracks.items[0].artists.name);
+ 			console.log("Album of first search result song: " + data.tracks.items[0].album.name);
+ 			console.log("Preview link of first search result song: " + data.tracks.items[0].preview_url); 
+			});
+		};
+
 
 if (userInput === "movie-this") {
 
@@ -63,7 +89,6 @@ if (userInput === "movie-this") {
     // Parse the body of the site and recover just the title, release year, country of origin, language,
     // plot, actors, rotten tomatoes rating,imdbRating
     // (Note: The syntax below for parsing isn't obvious. Just spend a few moments dissecting it).
-    console.log(body);
     console.log("The movie's title is: " + JSON.parse(body).Title);
     console.log("The movie's release year is: " + JSON.parse(body).Year);
     console.log("The movie's country of origin is: " + JSON.parse(body).Country);
