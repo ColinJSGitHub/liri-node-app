@@ -26,19 +26,19 @@ var userInput = process.argv[2];
 var userInputTwo = process.argv[3];
 
 
-// should show my last 20 tweets and when they were created at in the terminal window
+// should show my last 20 tweets and when they were created at in the terminal window. WARNING: the objects are gigantic!
 if (userInput === "my-tweets") {
 
 	console.log(keys);
 
 	var client = new Twitter({
-  	consumer_key: 'twitterkeys.consumer_key',
-  	consumer_secret: 'twitterkeys.consumer_secret',
-  	access_token_key: 'twitterkeys.access_token_key',
-  	access_token_secret: 'twitterkeys.access_token_secret',
+  	consumer_key: keys.twitterKeys.consumer_key,
+  	consumer_secret: keys.twitterKeys.consumer_secret,
+  	access_token_key: keys.twitterKeys.access_token_key,
+  	access_token_secret: keys.twitterKeys.access_token_secret,
 });
  
-var params = {screen_name: 'ColinJSCoding'};
+var params = {screen_name: 'Colin Stone'};
 client.get('statuses/user_timeline', params, function(error, tweets, response) {
   if (!error) {
     console.log(tweets);
