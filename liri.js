@@ -41,7 +41,12 @@ if (userInput === "my-tweets") {
 var params = {screen_name: 'Colin Stone'};
 client.get('statuses/user_timeline', params, function(error, tweets, response) {
   if (!error) {
-    console.log(tweets);
+
+  	for (i = 0; i <20; i++) {
+  		console.log("Tweeted time: " + tweets[i].created_at);
+  		console.log("Tweet text: " + tweets[i].text + "\n");
+  	};
+    
   }
 })
 
@@ -81,25 +86,50 @@ if (userInput === "spotify-this-song") {
 
 
 if (userInput === "movie-this") {
+	
+	if (!userInputTwo) {
 
-	request("http://www.omdbapi.com/?t="+ userInputTwo +"&y=&plot=short&r=json", function(error, response, body) {
+		request("http://www.omdbapi.com/?t="+ "mr+nobody" +"&y=&plot=short&r=json", function(error, response, body) {
 
-  	// If the request is successful (i.e. if the response status code is 200)
-  	if (!error && response.statusCode === 200) {
+  		// If the request is successful (i.e. if the response status code is 200)
+  		if (!error && response.statusCode === 200) {
 
-    // Parse the body of the site and recover just the title, release year, country of origin, language,
-    // plot, actors, rotten tomatoes rating,imdbRating
-    // (Note: The syntax below for parsing isn't obvious. Just spend a few moments dissecting it).
-    console.log("The movie's title is: " + JSON.parse(body).Title);
-    console.log("The movie's release year is: " + JSON.parse(body).Year);
-    console.log("The movie's country of origin is: " + JSON.parse(body).Country);
-    console.log("The movie's language formats are: " + JSON.parse(body).Language);
-    console.log("Plot Summary: " + JSON.parse(body).Plot);
-    console.log("The major actors starring in this movie are: " + JSON.parse(body).Actors);
-    console.log("The movie's Rotten Tomatoes rating is: " + JSON.parse(body).Ratings[1].Value);
-    console.log("The movie's rating is: " + JSON.parse(body).imdbRating);
-  }
-});
+    	// Parse the body of the site and recover just the title, release year, country of origin, language,
+    	// plot, actors, rotten tomatoes rating,imdbRating
+    	// (Note: The syntax below for parsing isn't obvious. Just spend a few moments dissecting it).
+    	console.log("The movie's title is: " + JSON.parse(body).Title);
+    	console.log("The movie's release year is: " + JSON.parse(body).Year);
+    	console.log("The movie's country of origin is: " + JSON.parse(body).Country);
+    	console.log("The movie's language formats are: " + JSON.parse(body).Language);
+    	console.log("Plot Summary: " + JSON.parse(body).Plot);
+    	console.log("The major actors starring in this movie are: " + JSON.parse(body).Actors);
+    	console.log("The movie's Rotten Tomatoes rating is: " + JSON.parse(body).Ratings[1].Value);
+    	console.log("The movie's rating is: " + JSON.parse(body).imdbRating);
+  		}
+	});
+
+	}
+
+	else {
+		request("http://www.omdbapi.com/?t="+ userInputTwo +"&y=&plot=short&r=json", function(error, response, body) {
+
+  		// If the request is successful (i.e. if the response status code is 200)
+  		if (!error && response.statusCode === 200) {
+
+    	// Parse the body of the site and recover just the title, release year, country of origin, language,
+    	// plot, actors, rotten tomatoes rating,imdbRating
+    	// (Note: The syntax below for parsing isn't obvious. Just spend a few moments dissecting it).
+    	console.log("The movie's title is: " + JSON.parse(body).Title);
+    	console.log("The movie's release year is: " + JSON.parse(body).Year);
+    	console.log("The movie's country of origin is: " + JSON.parse(body).Country);
+    	console.log("The movie's language formats are: " + JSON.parse(body).Language);
+    	console.log("Plot Summary: " + JSON.parse(body).Plot);
+    	console.log("The major actors starring in this movie are: " + JSON.parse(body).Actors);
+    	console.log("The movie's Rotten Tomatoes rating is: " + JSON.parse(body).Ratings[1].Value);
+    	console.log("The movie's rating is: " + JSON.parse(body).imdbRating);
+  		}
+	});
+	};
 };
 
 // Using the "fs" Node package, should take the text inside of random.txt and then use it to call one of LIRI's commands.
