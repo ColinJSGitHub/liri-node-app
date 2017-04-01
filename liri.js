@@ -105,8 +105,34 @@ if (userInput === "movie-this") {
 // Using the "fs" Node package, should take the text inside of random.txt and then use it to call one of LIRI's commands.
 if (userInput == "do-what-it-says") {
 
-}
+	fs.readFile("random.txt", "utf8", function(error, data) {
 
+		if (error) {
+
+			return console.log(err);
+		}
+
+
+  		// Splits the data by ", " delimiters)
+		var randomArr = data.split(", ");
+  		// it organizes the data into an array by using the comma character as a delimiter to distinguish the gap between separate entries.
+
+  		// We will then re-display the content as an array for later use.
+		console.log(randomArr);
+
+	spotify.search({ type: 'track', query: randomArr[1] }, function(err, data) {
+    	if ( err ) {
+        	console.log('Error occurred: ' + err);
+        	return;
+    	}
+ 	console.log("Name of first search result song: " + data.tracks.items[0].name);
+ 	console.log("Artists of first search result song: " + data.tracks.items[0].artists[0].name);
+ 	console.log("Album of first search result song: " + data.tracks.items[0].album.name);
+ 	console.log("Preview link of first search result song: " + data.tracks.items[0].preview_url); 
+			});
+
+})
+}
 //BONUS- Cause all of these to output data to append to a .txt file called "log.txt"
 // Should append each command you run to the "log.txt" file.
 // Do not overwrite your file each time you run a command.
